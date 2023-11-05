@@ -70,13 +70,7 @@
                 {
                     if (argument.Length == 3)
                     {
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
+                        removeIndex(argument[1], argument[2]);
                     }
                     else if (argument.Length == 1)
                     {
@@ -84,14 +78,7 @@
                         string swe = Console.ReadLine();
                         Console.Write("Write word in English: ");
                         string eng = Console.ReadLine();
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == swe && gloss.word_eng == eng)
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
+                        removeIndex(swe, eng);
                     }
                     //FIXME:"delete" error om man tar bort något som inte finns
                 }
@@ -127,6 +114,18 @@
             }
             //TODO: Ändra så quit stänger programmet
             while (true);
+        }
+
+        private static void removeIndex(string swe, string eng)
+        {
+            int index = -1;
+            for (int i = 0; i < dictionary.Count; i++)
+            {
+                SweEngGloss gloss = dictionary[i];
+                if (gloss.word_swe == swe && gloss.word_eng == eng)
+                    index = i;
+            }
+            dictionary.RemoveAt(index);
         }
 
         private static void addGloss(StreamReader sr)
