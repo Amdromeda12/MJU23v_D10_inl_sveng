@@ -49,6 +49,7 @@ namespace MJU23v_D10_inl_sveng
                             using (StreamReader sr = new StreamReader(defaultFile))
                                 addGloss(sr);
                         }
+                        //TODO: Kunde nog ha lagt in "using" in i "addGloss"
                     }
                     catch (Exception ex)
                     {
@@ -70,10 +71,8 @@ namespace MJU23v_D10_inl_sveng
                     }
                     else if(argument.Length == 1)
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swe = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string eng = Console.ReadLine();
+                        string swe, eng;
+                        SweEng(out swe, out eng);
                         dictionary.Add(new SweEngGloss(swe, eng));
                     }
                 }
@@ -87,10 +86,8 @@ namespace MJU23v_D10_inl_sveng
                         }
                         else if (argument.Length == 1)
                         {
-                            Console.WriteLine("Write word in Swedish: ");
-                            string swe = Console.ReadLine();
-                            Console.Write("Write word in English: ");
-                            string eng = Console.ReadLine();
+                            string swe, eng;
+                            SweEng(out swe, out eng);
                             removeIndex(swe, eng);
                         }
                     }
@@ -115,6 +112,14 @@ namespace MJU23v_D10_inl_sveng
                 }
             }
             while (on == true);
+        }
+
+        private static void SweEng(out string swe, out string eng)
+        {
+            Console.WriteLine("Write word in Swedish: ");
+            swe =Console.ReadLine();
+            Console.Write("Write word in English: ");
+            eng =Console.ReadLine();
         }
 
         private static void glossWord(string swe)
