@@ -20,6 +20,7 @@
         {
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
+            PrintHelpMessage();
             do
             {
                 Console.Write("> ");
@@ -56,7 +57,7 @@
                                 SweEngGloss gloss = new SweEngGloss(line);
                                 dictionary.Add(gloss);
                                 line = sr.ReadLine();
-                            }
+                            }   //FIXME: Error om inte hittar "load "filnamn""
                         }
                     }
                 }
@@ -72,7 +73,7 @@
                     if (argument.Length == 3)
                     {
                         dictionary.Add(new SweEngGloss(argument[1], argument[2]));
-                    }
+                    } //FIXME: Crashar
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
@@ -82,6 +83,7 @@
                         dictionary.Add(new SweEngGloss(s, e));
                     }
                 }
+                //FIXME: Fel om "list" om det inte finns något i listan
                 else if (command == "delete")
                 {
                     if (argument.Length == 3)
@@ -109,8 +111,9 @@
                         }
                         dictionary.RemoveAt(index);
                     }
+                    //FIXME:"delete" error om man tar bort något som inte finns
                 }
-                else if (command == "translate")
+                else if (command == "translate")    //FIXME: error om "translate" något som inte finns med i listan
                 {
                     if (argument.Length == 2)
                     {
@@ -140,7 +143,21 @@
                     Console.WriteLine($"Unknown command: '{command}'");
                 }
             }
+            //TODO: Ändra så quit stänger programmet
             while (true);
+        }
+        private static void PrintHelpMessage()
+        {
+            Console.WriteLine("Avaliable commands: ");
+            Console.WriteLine("  delete                      - empty the word list");
+            Console.WriteLine("  delete /persname/ /surname/ - delete a word");
+            Console.WriteLine("  list                        - list the translated words");
+            Console.WriteLine("  load                        - load word list data from the file address.lis");
+            Console.WriteLine("  load /file/                 - load word list data from the file");
+            Console.WriteLine("  new                         - create new translation");
+            Console.WriteLine("  new /persname/ /surname/    - create new translation using swedish then english");
+            Console.WriteLine("  quit                        - quit the program");
+            Console.WriteLine();
         }
     }
 }
