@@ -35,30 +35,12 @@
                     if(argument.Length == 2)
                     {
                         using (StreamReader sr = new StreamReader(argument[1]))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
+                            addGloss(sr);
                     }
                     else if(argument.Length == 1)
                     {
                         using (StreamReader sr = new StreamReader(defaultFile))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }   //FIXME: Error om inte hittar "load "filnamn""
-                        }
+                            addGloss(sr);
                     }
                 }
                 else if (command == "list")
@@ -146,16 +128,30 @@
             //TODO: Ändra så quit stänger programmet
             while (true);
         }
+
+        private static void addGloss(StreamReader sr)
+        {
+            dictionary = new List<SweEngGloss>(); // Empty it!
+            string line = sr.ReadLine();
+            while (line != null)
+            {
+                SweEngGloss gloss = new SweEngGloss(line);
+                dictionary.Add(gloss);
+                line = sr.ReadLine();
+            }   //FIXME: Error om inte hittar "load "filnamn""
+        }
+
         private static void PrintHelpMessage()
         {
             Console.WriteLine("Avaliable commands: ");
             Console.WriteLine("  delete                      - empty the word list");
             Console.WriteLine("  delete /persname/ /surname/ - delete a word");
             Console.WriteLine("  list                        - list the translated words");
-            Console.WriteLine("  load                        - load word list data from the file address.lis");
+            Console.WriteLine("  load                        - load word list data from the file sweeng.lis");
             Console.WriteLine("  load /file/                 - load word list data from the file");
             Console.WriteLine("  new                         - create new translation");
             Console.WriteLine("  new /persname/ /surname/    - create new translation using swedish then english");
+            Console.WriteLine("  translate                   - translate a word to the other language");
             Console.WriteLine("  quit                        - quit the program");
             Console.WriteLine();
         }
