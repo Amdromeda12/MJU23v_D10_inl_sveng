@@ -1,4 +1,6 @@
-﻿namespace MJU23v_D10_inl_sveng
+﻿using System.Data;
+
+namespace MJU23v_D10_inl_sveng
 {
     internal class Program
     {
@@ -18,6 +20,7 @@
         }
         static void Main(string[] args)
         {
+            bool on = true;
             string defaultFile = "..\\..\\..\\dict\\sweeng.lis";
             Console.WriteLine("Welcome to the dictionary app!");
             PrintHelpMessage();
@@ -29,18 +32,26 @@
                 if (command == "quit")
                 {
                     Console.WriteLine("Goodbye!");
+                    on = false;
                 }
                 else if (command == "load")
                 {
-                    if(argument.Length == 2)
+                    try 
                     {
-                        using (StreamReader sr = new StreamReader(argument[1]))
-                            addGloss(sr);
+                        if (argument.Length == 2)
+                        {
+                            using (StreamReader sr = new StreamReader(argument[1]))
+                                addGloss(sr);
+                        }
+                        else if (argument.Length == 1)
+                        {
+                            using (StreamReader sr = new StreamReader(defaultFile))
+                                addGloss(sr);
+                        }
                     }
-                    else if(argument.Length == 1)
+                    catch (Exception ex)
                     {
-                        using (StreamReader sr = new StreamReader(defaultFile))
-                            addGloss(sr);
+                        Console.WriteLine($"hittade inte filen {argument[1]}");
                     }
                 }
                 else if (command == "list")
@@ -101,7 +112,7 @@
                 }
             }
             //TODO: Ändra så quit stänger programmet
-            while (true);
+            while (on == true);
         }
 
         private static void glossWord(string swe)
