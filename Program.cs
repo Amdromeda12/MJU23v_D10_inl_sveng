@@ -77,10 +77,10 @@
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swe = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(s, e));
+                        string eng = Console.ReadLine();
+                        dictionary.Add(new SweEngGloss(swe, eng));
                     }
                 }
                 //FIXME: Fel om "list" om det inte finns något i listan
@@ -99,14 +99,14 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swe = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
+                        string eng = Console.ReadLine();
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++)
                         {
                             SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == s && gloss.word_eng == e)
+                            if (gloss.word_swe == swe && gloss.word_eng == eng)
                                 index = i;
                         }
                         dictionary.RemoveAt(index);
@@ -128,12 +128,12 @@
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine();
+                        string swe = Console.ReadLine();
                         foreach (SweEngGloss gloss in dictionary)
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == swe)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == swe)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }
                     }
